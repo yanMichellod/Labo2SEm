@@ -20,9 +20,10 @@ next    EQU	0
 name	EQU	4
 age		EQU 12
 	
-storedAddress RN 4		;stock address in r4
-previousAddress RN 5	;previous address for the linked list
-emptyRegister RN 6
+storedAddress	 RN 4	;stock address in r4
+previousAddress	 RN 5	;previous address for the linked list
+emptyRegister	 RN 6	;Register with NULL
+nameToDelete 	 RN 7	;Register to save the name to delete
 
 asm_main PROC
 	push	{lr}		; save return address
@@ -31,6 +32,9 @@ asm_main PROC
 	add	r1,r0,#4		; add 4 for next free bloock
 	str	r1,[r0]			; store in start of heap
 	mov emptyRegister , #0
+	mov r0, #8					;ask for 16 bytes to store data
+	bl	New 					;define the address to store data, in r0, for strIn
+	mov nameToDelete, r0		;store the memory address
 ;------------------------ ASK CHOICE ------------------------------
 loop
 	ldr	r0,=MsgAsk
@@ -70,7 +74,7 @@ NewEntry
 	ldr	r0,=MsgName
 	bl	strOut					; display message
 	
-	mov r0, #16					;ask for 14 bytes to store data
+	mov r0, #16					;ask for 16 bytes to store data
 	bl	New 					;define the address to store data, in r0, for strIn
 	mov storedAddress, r0		;store the memory address
 	
@@ -138,6 +142,25 @@ NextView
 DeleteEntry
 ; TODO complete your code here
 
+	ldr	r0,=MsgToDelete
+	bl	strOut					; display message
+	mov r0, nameToDelete		;store the address to write the name, after the "next", for the strIn
+	mov r1, #8					;store the max length for strIn 
+	bl strIn					;call the stdIn function
+	
+	
+	;to continue........
+	
+	ldr r0, =Header 			;store the value pointed by header into r0 
+	ldr r0, [r0]     			;store the value pointed by header into r0
+	cmp r0, emptyRegister		; test if r0 is NULL
+	
+WhileDelete
+	
+
+NextDelete
+	
+	
 	B	loop
 
 ;=================================================================
