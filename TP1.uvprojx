@@ -379,16 +379,6 @@
       </TargetOption>
       <Groups>
         <Group>
-          <GroupName>Source Group 1</GroupName>
-          <Files>
-            <File>
-              <FileName>main.s</FileName>
-              <FileType>2</FileType>
-              <FilePath>.\main.s</FilePath>
-            </File>
-          </Files>
-        </Group>
-        <Group>
           <GroupName>::CMSIS</GroupName>
         </Group>
         <Group>
